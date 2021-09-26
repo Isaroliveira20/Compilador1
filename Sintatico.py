@@ -1,13 +1,21 @@
 from TokenIsa import Token,TokenType
 
 
-
+# class NumberType(Enum):
+#     num_inteiro = 1
+#     num_real = 2
 
 class Sintatico():
 
     def __init__(self,lista):
         self.listaTokens = lista
         self.ponteiro = 0
+        self.tabelaSimbolos = {}
+        self.tipoAtual = None
+
+
+    def pegaTokenAtual(self):
+        return self.listaTokens[self.ponteiro] 
 
     def verificaTipo(self,tipo):
         return self.listaTokens[self.ponteiro] != None and self.listaTokens[self.ponteiro].tipo == tipo
@@ -46,6 +54,7 @@ class Sintatico():
 
     def corpo(self):
         self.dc()
+        self.tipoAtual = None 
         if self.verificaSimboloException("begin"):
             self.ponteiro += 1
             self.comandos()   
@@ -76,6 +85,10 @@ class Sintatico():
     
     def tipo_var(self):
         if self.verificaSimbolo("real") or self.verificaSimbolo("integer"):
+            if self.verificaSimbolo("real"):
+                self.tipoAtual = "real"
+            else:
+                self.tipoAtual = "integer"
             self.ponteiro +=1
         else:
             raise Exception("Esperando real ou inteiro, Recebido " + self.listaTokens[self.ponteiro].tipo )
@@ -83,6 +96,10 @@ class Sintatico():
 
     def variaveis(self):
         if self.verificaTipoException(TokenType.identificador):
+            if self.pegaTokenAtual().termo in self.tabelaSimbolos:
+                raise Exception ("Variavel já foi declarada")
+            else:
+                self.tabelaSimbolos[self.pegaTokenAtual().termo] = self.tipoAtual
             self.ponteiro +=1
             self.mais_var()
     
@@ -112,6 +129,8 @@ class Sintatico():
             if self.verificaSimboloException("("):
                 self.ponteiro += 1
                 if self.verificaTipoException(TokenType.identificador):
+                    if self.pegaTokenAtual().termo not in self.tabelaSimbolos:
+                        raise Exception ("Variavel não foi declarada")
                     self.ponteiro +=1
                     if self.verificaSimboloException(")"):
                         self.ponteiro += 1
@@ -121,6 +140,8 @@ class Sintatico():
             if self.verificaSimboloException("("):
                 self.ponteiro += 1
                 if self.verificaTipoException(TokenType.identificador):
+                    if self.pegaTokenAtual().termo not in self.tabelaSimbolos:
+                        raise Exception ("Variavel não foi declarada")
                     self.ponteiro += 1
                     if self.verificaSimboloException(")"):
                         self.ponteiro +=1
@@ -137,16 +158,21 @@ class Sintatico():
                     return
 
         elif self.verificaTipoException(TokenType.identificador):
+            if self.pegaTokenAtual().termo not in self.tabelaSimbolos:
+                raise Exception ("Variavel não foi declarada")
+            self.tipoAtual = self.tabelaSimbolos[self.pegaTokenAtual().termo] #le a variavel e atribui o valor para o tipo dela
             self.ponteiro +=1
             if self.verificaSimboloException(":="):
                 self.ponteiro += 1
                 self.expressao()
+                self.tipoAtual = None 
                 return
 
     def condicao(self):
         self.expressao()
         self.relacao()
         self.expressao()
+        self.tipoAtual = None 
 
     def relacao(self):
         if self.verificaSimbolo("="):
@@ -185,10 +211,25 @@ class Sintatico():
       
     def fator(self):
         if self.verificaTipo(TokenType.identificador):
+            if self.pegaTokenAtual().termo not in self.tabelaSimbolos:
+                raise Exception ("Variavel não foi declarada")
+            if self.tipoAtual == None:
+                self.tipoAtual = self.tabelaSimbolos[self.pegaTokenAtual().termo] 
+
+            if self.tabelaSimbolos[self.pegaTokenAtual().termo] != self.tipoAtual:
+                raise Exception ("Tipos de variaveis diferentes")
             self.ponteiro +=1
         elif self.verificaTipo(TokenType.num_inteiro):
+            if self.tipoAtual == None:
+                self.tipoAtual = "integer"
+            if "integer" != self.tipoAtual:
+                raise Exception ("Tipos de variaveis diferentes")
             self.ponteiro +=1
         elif self.verificaTipo(TokenType.num_real):
+            if self.tipoAtual == None:
+                self.tipoAtual = "real"
+            if "real" != self.tipoAtual:
+                raise Exception ("Tipos de variaveis diferentes")
             self.ponteiro +=1
         elif self.verificaSimboloException("("):
             self.ponteiro +=1
