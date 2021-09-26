@@ -1,0 +1,356 @@
+p
+r
+o
+g
+r
+a
+m
+ 
+ 
+t
+e
+s
+t
+e
+
+
+
+
+	
+r
+e
+a
+l
+:
+:
+ 
+ 
+a
+,
+,
+b
+;
+;
+
+
+	
+i
+n
+t
+e
+g
+e
+r
+:
+:
+ 
+ 
+c
+,
+,
+ 
+d
+;
+;
+
+
+b
+e
+g
+i
+n
+ 
+ 
+
+
+	
+r
+e
+a
+d
+(
+(
+a
+)
+)
+;
+
+
+	
+r
+e
+a
+d
+(
+(
+c
+)
+)
+;
+
+
+ 
+ 
+b
+ 
+ 
+:
+=
+ 
+ 
+a
+ 
+ 
+*
+ 
+a
+ 
+ 
++
+ 
+a
+;
+;
+
+
+ 
+ 
+d
+ 
+ 
+:
+=
+ 
+ 
+2
+*
+*
+c
+ 
+ 
++
+ 
+c
+;
+;
+
+
+ 
+ 
+i
+f
+ 
+ 
+a
+ 
+ 
+>
+ 
+ 
+b
+ 
+ 
+t
+h
+e
+n
+
+
+
+
+ 
+ 
+	
+w
+r
+i
+t
+e
+(
+(
+a
+)
+)
+
+
+ 
+ 
+e
+l
+s
+e
+
+
+
+
+ 
+ 
+	
+w
+r
+i
+t
+e
+(
+(
+b
+)
+)
+
+
+ 
+ 
+$
+;
+
+
+ 
+ 
+i
+f
+ 
+ 
+d
+ 
+ 
+<
+ 
+ 
+c
+ 
+ 
+t
+h
+e
+n
+
+
+
+
+ 
+ 
+	
+w
+r
+i
+t
+e
+(
+(
+d
+)
+)
+
+
+ 
+ 
+e
+l
+s
+e
+
+
+
+
+ 
+ 
+	
+w
+r
+i
+t
+e
+(
+(
+c
+)
+)
+
+
+ 
+ 
+$
+
+
+e
+n
+d
+.
+.
+
+
+program identificador
+teste identificador
+real identificador
+: simbolo
+a identificador
+, simbolo
+b identificador
+; simbolo
+integer identificador
+: simbolo
+c identificador
+, simbolo
+d identificador
+; simbolo
+begin identificador
+read identificador
+( simbolo
+a identificador
+) simbolo
+; simbolo
+read identificador
+( simbolo
+c identificador
+) simbolo
+; simbolo
+b identificador
+:= simbolo
+a identificador
+* simbolo
+a identificador
++ simbolo
+a identificador
+; simbolo
+d identificador
+:= simbolo
+2 num_inteiro
+* simbolo
+c identificador
++ simbolo
+c identificador
+; simbolo
+if identificador
+a identificador
+> simbolo
+b identificador
+then identificador
+write identificador
+( simbolo
+a identificador
+) simbolo
+else identificador
+write identificador
+( simbolo
+b identificador
+) simbolo
+$ simbolo
+; simbolo
+if identificador
+d identificador
+< simbolo
+c identificador
+then identificador
+write identificador
+( simbolo
+d identificador
+) simbolo
+else identificador
+write identificador
+( simbolo
+c identificador
+) simbolo
+$ simbolo
+end identificador
+. simbolo
+Programa compilado! :)
