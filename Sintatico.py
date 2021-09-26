@@ -100,6 +100,10 @@ class Sintatico():
                 raise Exception ("Variavel já foi declarada")
             else:
                 self.tabelaSimbolos[self.pegaTokenAtual().termo] = self.tipoAtual
+                if self.tipoAtual == "real":
+                    print("ALME,0.0,," + self.pegaTokenAtual().termo)
+                else:
+                    print("ALME,0,," + self.pegaTokenAtual().termo)
             self.ponteiro +=1
             self.mais_var()
     
@@ -131,6 +135,7 @@ class Sintatico():
                 if self.verificaTipoException(TokenType.identificador):
                     if self.pegaTokenAtual().termo not in self.tabelaSimbolos:
                         raise Exception ("Variavel não foi declarada")
+                    print("read,,,"+ self.pegaTokenAtual().termo)
                     self.ponteiro +=1
                     if self.verificaSimboloException(")"):
                         self.ponteiro += 1
@@ -142,10 +147,13 @@ class Sintatico():
                 if self.verificaTipoException(TokenType.identificador):
                     if self.pegaTokenAtual().termo not in self.tabelaSimbolos:
                         raise Exception ("Variavel não foi declarada")
+                    print("write,,,"+ self.pegaTokenAtual().termo)
                     self.ponteiro += 1
                     if self.verificaSimboloException(")"):
                         self.ponteiro +=1
+                        
                         return
+
         elif self.verificaSimbolo("if"):
             self.ponteiro +=1
             self.condicao()
